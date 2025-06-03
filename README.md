@@ -66,9 +66,6 @@ A modern and interactive web platform designed to help students and professional
   cd codecrafed-interview-webapp
 
 
-3. Install dependencies (if using npm):
-  ```bash
-  npm install
-
+USE DEPENDENCIES IF NEEDED.
 
 
