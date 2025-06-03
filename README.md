@@ -58,3 +58,20 @@ A modern and interactive web platform designed to help students and professional
 1. Clone the repository:
    ```bash
    git clone https://github.com/chaitravc/codecrafted-interview-webapp.git
+
+
+
+Navigate into the project folder:
+
+cd codecrafed-interview-webapp
+
+
+Install dependencies (if using npm):
+
+npm install
+
+Run the development server:
+
+npm run dev
+
+Visit http://localhost:3000 in your browser.
