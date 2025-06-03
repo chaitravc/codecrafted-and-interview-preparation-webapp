@@ -66,13 +66,3 @@ A modern and interactive web platform designed to help students and professional
   cd codecrafed-interview-webapp
 
 
-3. Install dependencies (if using npm):
-  ```bash
-  npm install
-
-4. Run the development server:
-    ```bash
-npm run dev
-
-5. ```bash
-  Visit http://localhost:3000 in your browser.
