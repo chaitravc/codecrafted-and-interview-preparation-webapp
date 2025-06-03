@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CodeCrafted | Problem Solving</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <a href="home.html" class="text-2xl font-bold text-blue-700 hover:text-blue-600" aria-label="Back to home">
+          ←
+        </a>
+        <div class="text-2xl font-bold text-blue-700">👨‍💻 CodeCrafted</div>
+      </div>
+      <ul class="hidden md:flex space-x-6 font-medium text-gray-700">
+        <li><a href="home.html" class="hover:text-blue-600">Home</a></li>
+        <li><a href="problem-solving.html" class="text-blue-600 font-semibold">Problem Solving</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="text-center py-16 bg-indigo-100 rounded-b-3xl shadow">
+    <h1 class="text-4xl font-extrabold text-indigo-800 mb-4">🧩 Problem Solving</h1>
+    <p class="text-lg text-gray-700">Sharpen your skills with infinite coding problems.</p>
+  </section>
+
+  <!-- Difficulty Selector -->
+  <section class="max-w-5xl mx-auto px-6 mt-8">
+    <div class="flex justify-center space-x-4 mb-8">
+      <button id="easy-btn" class="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">Easy</button>
+      <button id="medium-btn" class="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition">Medium</button>
+      <button id="hard-btn" class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Hard</button>
+    </div>
+  </section>
+
+  <!-- Problem Display -->
+  <section class="max-w-5xl mx-auto px-6 mt-4">
+    <div id="problem-container" class="space-y-6"></div>
+    <div class="text-center mt-8">
+      <button id="load-more-btn" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Load More Problems</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 mt-12 text-gray-500 text-sm">
+    © 2025 CodeCrafted. Keep solving, keep growing.
+  </footer>
+
+  <script>
+    // Mock Problem Database with LeetCode slugs
+    const problemsDatabase = {
+      easy: [
+        { 
+          title: "Two Sum", 
+          description: "Find two numbers that add up to a target.", 
+          example: "Input: nums = [2,7,11,15], target = 9 → Output: [0,1]",
+          leetcodeSlug: "two-sum" 
+        },
+        { 
+          title: "Palindrome Number", 
+          description: "Check if a number reads the same backward.", 
+          example: "Input: 121 → Output: true",
+          leetcodeSlug: "palindrome-number" 
+        },
+        { 
+          title: "Roman to Integer", 
+          description: "Convert Roman numerals to integers.", 
+          example: "Input: 'III' → Output: 3",
+          leetcodeSlug: "roman-to-integer" 
+        }
+      ],
+      medium: [
+        { 
+          title: "Add Two Numbers", 
+          description: "Add two numbers represented as linked lists.", 
+          example: "Input: l1 = [2,4,3], l2 = [5,6,4] → Output: [7,0,8]",
+          leetcodeSlug: "add-two-numbers" 
+        },
+        { 
+          title: "Longest Substring Without Repeating Characters", 
+          description: "Find the length of the longest unique substring.", 
+          example: "Input: 'abcabcbb' → Output: 3",
+          leetcodeSlug: "longest-substring-without-repeating-characters" 
+        },
+        { 
+          title: "Container With Most Water", 
+          description: "Find two lines that hold the most water.", 
+          example: "Input: [1,8,6,2,5,4,8,3,7] → Output: 49",
+          leetcodeSlug: "container-with-most-water" 
+        }
+      ],
+      hard: [
+        { 
+          title: "Median of Two Sorted Arrays", 
+          description: "Find the median of two sorted arrays.", 
+          example: "Input: nums1 = [1,3], nums2 = [2] → Output: 2.0",
+          leetcodeSlug: "median-of-two-sorted-arrays" 
+        },
+        { 
+          title: "Regular Expression Matching", 
+          description: "Implement wildcard pattern matching.", 
+          example: "Input: s = 'aa', p = 'a*' → Output: true",
+          leetcodeSlug: "regular-expression-matching" 
+        },
+        { 
+          title: "Merge k Sorted Lists", 
+          description: "Merge k sorted linked lists.", 
+          example: "Input: lists = [[1,4,5],[1,3,4],[2,6]] → Output: [1,1,2,3,4,4,5,6]",
+          leetcodeSlug: "merge-k-sorted-lists" 
+        }
+      ]
+    };
+
+    // DOM Elements
+    const problemContainer = document.getElementById("problem-container");
+    const loadMoreBtn = document.getElementById("load-more-btn");
+    let currentDifficulty = "easy";
+    let currentIndex = 0;
+
+    // Initialize
+    document.getElementById("easy-btn").addEventListener("click", () => loadProblems("easy"));
+    document.getElementById("medium-btn").addEventListener("click", () => loadProblems("medium"));
+    document.getElementById("hard-btn").addEventListener("click", () => loadProblems("hard"));
+    loadMoreBtn.addEventListener("click", loadNextProblem);
+
+    // Load Problems
+    function loadProblems(difficulty) {
+      currentDifficulty = difficulty;
+      currentIndex = 0;
+      problemContainer.innerHTML = "";
+      loadNextProblem();
+    }
+
+    // Load Next Problem
+    function loadNextProblem() {
+      const problems = problemsDatabase[currentDifficulty];
+      if (currentIndex >= problems.length) {
+        currentIndex = 0; // Loop back to start for infinite problems
+      }
+
+      const problem = problems[currentIndex];
+      const problemCard = document.createElement("div");
+      problemCard.className = "bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition";
+      problemCard.innerHTML = `
+        <h3 class="text-xl font-semibold mb-2 text-${getDifficultyColor(currentDifficulty)}-600">
+          ${problem.title}
+        </h3>
+        <p class="text-gray-700 mb-3">${problem.description}</p>
+        <div class="bg-gray-50 p-3 rounded">
+          <p class="text-sm font-medium text-gray-600">Example:</p>
+          <p class="text-sm">${problem.example}</p>
+        </div>
+        <a href="https://leetcode.com/problems/${problem.leetcodeSlug}" target="_blank" class="inline-block mt-3 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Solve on LeetCode</a>
+      `;
+      problemContainer.appendChild(problemCard);
+      currentIndex++;
+    }
+
+    // Helper: Get color based on difficulty
+    function getDifficultyColor(difficulty) {
+      return {
+        "easy": "green",
+        "medium": "yellow",
+        "hard": "red"
+      }[difficulty];
+    }
+
+    // Load Easy problems by default
+    loadProblems("easy");
+  </script>
+</body>
+</html>
