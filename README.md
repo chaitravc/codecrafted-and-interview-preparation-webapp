@@ -61,17 +61,18 @@ A modern and interactive web platform designed to help students and professional
 
 
 
-Navigate into the project folder:
+2. Navigate into the project folder:
 ```bash
 cd codecrafed-interview-webapp
 
 
-Install dependencies (if using npm):
-
+3. Install dependencies (if using npm):
+```bash
 npm install
 
-Run the development server:
-
+4. Run the development server:
+```bash
 npm run dev
 
+5. ```bash
 Visit http://localhost:3000 in your browser.
