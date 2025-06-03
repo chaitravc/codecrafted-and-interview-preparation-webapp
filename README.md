@@ -48,10 +48,19 @@ A modern and interactive web platform designed to help students and professional
 
 ---
 
-## 📷 Screenshots (optional)
+## 📷 Screenshots
 
 ![Image](https://github.com/user-attachments/assets/5d3a05fc-6a0d-4ad8-a38c-ab2bd0b9d126)
 
+![Image](https://github.com/user-attachments/assets/b33b493f-688a-4257-b644-e5ec7f1c871a)
+
+![Image](https://github.com/user-attachments/assets/34e28ab6-f92b-4da5-9e43-02f545860167)
+
+![Image](https://github.com/user-attachments/assets/929557ea-bc00-4ae8-8417-4e512117abf0)
+
+![Image](https://github.com/user-attachments/assets/1ab3b8be-aa99-4f09-9ed9-9d990f819673)
+
+![Image](https://github.com/user-attachments/assets/3b147081-cd44-4d35-ad97-5a26ddffb4ab)
 
 ---
 
