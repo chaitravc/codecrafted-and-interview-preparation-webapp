@@ -62,7 +62,7 @@ A modern and interactive web platform designed to help students and professional
 
 
 Navigate into the project folder:
-
+```bash
 cd codecrafed-interview-webapp
 
 
