@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CodeCrafted | Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+    .fade-out {
+      animation: fadeOut 1s ease forwards;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- 🔥 Splash Screen with Light Blue Background and Larger GIF -->
+  <div id="splashScreen" class="fixed inset-0 bg-blue-100 flex flex-col justify-center items-center z-50 p-6">
+    <img src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif" 
+         alt="Loading animation" 
+         class="w-72 h-72 mb-8 rounded-lg shadow-lg object-contain"/>
+    <h1 class="text-4xl font-extrabold text-blue-900 mb-3">👨‍💻 CodeCrafted</h1>
+    <p class="text-blue-900 text-xl max-w-xs text-center">Leveling up your coding journey...</p>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="bg-white shadow sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="text-2xl font-bold text-blue-700">👨‍💻 CodeCrafted</div>
+      <ul class="flex space-x-6 font-medium text-gray-700">
+        <li><a href="home.html" class="text-blue-600 font-semibold">Home</a></li>
+        <li><a href="javascript:void(0)" onclick="goToDashboard()" class="hover:text-blue-600 transition">Go to Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Welcome Section -->
+  <header class="text-center py-16 bg-blue-100 rounded-b-3xl shadow">
+    <h1 class="text-4xl font-extrabold text-blue-800 mb-4">Welcome to CodeCrafted!</h1>
+    <p class="text-lg text-gray-700">Level up your coding skills, ace interviews, and track your progress — all in one place. 🚀</p>
+  </header>
+
+  <!-- Login and Sign Up Section -->
+  <section class="max-w-5xl mx-auto px-6 mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
+      <h2 class="text-xl font-semibold text-blue-700 mb-2">🔑 Already have an account?</h2>
+      <p class="text-gray-600">Log in to access your dashboard and start your journey!</p>
+      <a href="login.html">
+        <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Log In</button>
+      </a>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">📝 New here?</h2>
+      <p class="text-gray-600">Sign up to join the CodeCrafted community and start learning!</p>
+      <a href="signup.html">
+        <button class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Sign Up</button>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 mt-12 text-gray-500 text-sm">
+    © 2025 CodeCrafted. Made with ❤️ for learners.
+  </footer>
+
+  <!-- Script to handle Dashboard access and Splash Screen -->
+  <script>
+    function goToDashboard() {
+      if (localStorage.getItem("isLoggedIn") === "true") {
+        window.location.href = "dashboard.html";
+      } else {
+        const userChoice = confirm("You need to log in or sign up to access the dashboard. Do you want to log in or sign up?");
+        if (userChoice) {
+          window.location.href = "login.html";
+        } else {
+          window.location.href = "signup.html";
+        }
+      }
+    }
+
+    // Splash screen logic
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        const splash = document.getElementById("splashScreen");
+        splash.classList.add("fade-out");
+        setTimeout(() => splash.remove(), 1000);
+      }, 2000);
+    });
+  </script>
+
+</body>
+</html>

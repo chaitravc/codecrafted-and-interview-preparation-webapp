@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CodeCrafted | Technical Interview Questions</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <!-- Back Arrow and Logo -->
+      <div class="flex items-center space-x-4">
+        <a href="home.html" class="text-gray-600 hover:text-blue-600 text-2xl">&#8592;</a>
+        <div class="text-2xl font-bold text-blue-700">👨‍💻 CodeCrafted</div>
+      </div>
+
+      <ul class="hidden md:flex space-x-6 font-medium text-gray-700">
+        <li><a href="home.html" class="hover:text-blue-600">Home</a></li>
+        <li><a href="interview.html" class="text-blue-600 font-semibold">Interview Questions</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="text-center py-16 bg-yellow-100 rounded-b-3xl shadow">
+    <h1 class="text-4xl font-extrabold text-yellow-800 mb-4">💻 Technical Interview Questions</h1>
+    <p class="text-lg text-gray-700">Practice coding and CS fundamentals for your interviews.</p>
+  </section>
+
+  <!-- Interview Questions Section -->
+  <section class="max-w-5xl mx-auto px-6 mt-12">
+    <div class="bg-white p-8 rounded-xl shadow">
+      <h2 class="text-2xl font-semibold mb-6 text-teal-700">Technical Questions</h2>
+      
+      <!-- Difficulty Selector -->
+      <div class="mb-6">
+        <label class="block text-gray-700 mb-2">Select Difficulty:</label>
+        <select id="difficulty" class="border rounded p-2 w-full md:w-64">
+          <option value="">Any Difficulty</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+
+      <!-- Topic Selector -->
+      <div class="mb-6">
+        <label class="block text-gray-700 mb-2">Select Topic:</label>
+        <select id="topic" class="border rounded p-2 w-full md:w-64">
+          <option value="">All Categories</option>
+          <option value="Linux">Linux</option>
+          <option value="SQL">SQL</option>
+          <option value="Docker">Docker</option>
+          <option value="BASH">Bash</option>
+          <option value="DevOps">DevOps</option>
+        </select>
+      </div>
+
+      <!-- Number of Questions -->
+      <div class="mb-6">
+        <label class="block text-gray-700 mb-2">Number of Questions:</label>
+        <input type="number" id="questionCount" min="1" max="20" value="5" class="border rounded p-2 w-full md:w-64">
+      </div>
+
+      <!-- Fetch Button -->
+      <button id="fetchQuestions" class="px-6 py-2 bg-teal-500 text-white rounded hover:bg-teal-600 mb-8">
+        Start Quiz
+      </button>
+
+      <!-- Status Messages -->
+      <div id="statusMessage" class="mb-4"></div>
+
+      <!-- Quiz Container -->
+      <div id="quizContainer" class="hidden">
+        <form id="quizForm">
+          <div id="questionsContainer" class="space-y-8"></div>
+          <button type="submit" class="mt-6 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            Submit Answers
+          </button>
+        </form>
+      </div>
+
+      <!-- Results Container -->
+      <div id="resultsContainer" class="hidden mt-8 p-6 bg-gray-50 rounded-lg">
+        <h3 class="text-xl font-semibold mb-4">Quiz Results</h3>
+        <p id="scoreDisplay" class="text-lg"></p>
+        <div id="answersReview" class="mt-4 space-y-6"></div>
+
+        <!-- Reward Message -->
+        <div id="reward-message" class="bg-yellow-100 border border-yellow-400 text-yellow-800 p-6 rounded-xl shadow-md text-center hidden mt-6">
+          🎉 <span class="font-bold text-xl">Congratulations!</span> You scored full marks and earned a special reward! 🏆
+          <p class="mt-2">You've unlocked the <span class="font-semibold">"Interview Ace"</span> badge!</p>
+        </div>
+
+        <button id="retryQuiz" class="mt-6 px-6 py-2 bg-teal-500 text-white rounded hover:bg-teal-600">
+          Try Again
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 mt-12 text-gray-500 text-sm">
+    © 2025 CodeCrafted. Confidence comes with preparation.
+  </footer>
+
+  <script>
+    let currentQuestions = [];
+    
+    document.getElementById('fetchQuestions').addEventListener('click', async () => {
+      const difficulty = document.getElementById('difficulty').value;
+      const topic = document.getElementById('topic').value;
+      const questionCount = document.getElementById('questionCount').value;
+      const apiKey = 'MVhXHW2LaBcoFxG61yrvg5WKB2u3w6gj5cagO3AU';
+      
+      const statusElement = document.getElementById('statusMessage');
+      const container = document.getElementById('questionsContainer');
+      
+      statusElement.innerHTML = '<p class="text-blue-500">Loading questions... Please wait</p>';
+      container.innerHTML = '';
+      
+      try {
+        try {
+          await fetch('https://cors-anywhere.herokuapp.com/corsdemo', {
+            mode: 'no-cors'
+          });
+        } catch (e) {
+          console.log('CORS demo page access attempted');
+        }
+
+        const params = new URLSearchParams({
+          apiKey: apiKey,
+          limit: questionCount
+        });
+        
+        if (difficulty) params.append('difficulty', difficulty);
+        if (topic) params.append('category', topic);
+
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        const apiUrl = `https://quizapi.io/api/v1/questions?${params}`;
+        
+        const response = await fetch(proxyUrl + apiUrl, {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}`);
+        }
+        
+        currentQuestions = await response.json();
+        
+        if (!currentQuestions || currentQuestions.length === 0) {
+          statusElement.innerHTML = `
+            <div class="text-yellow-600 bg-yellow-50 p-4 rounded-lg">
+              <p>No questions found for these filters.</p>
+              <p class="text-sm mt-2">Try these working categories:</p>
+              <ul class="text-sm list-disc ml-4 mt-1">
+                <li>Linux</li>
+                <li>SQL</li>
+              </ul>
+            </div>
+          `;
+          return;
+        }
+        
+        renderQuestions(currentQuestions);
+        statusElement.innerHTML = '<p class="text-green-500">Questions loaded successfully!</p>';
+        
+      } catch (error) {
+        console.error("Error:", error);
+        statusElement.innerHTML = `
+          <div class="text-red-500 bg-red-50 p-4 rounded-lg">
+            <p>Error: ${error.message}</p>
+            <p class="text-sm mt-2 font-medium">Required steps:</p>
+            <ol class="text-sm list-decimal ml-4 mt-1">
+              <li>First visit <a href="https://cors-anywhere.herokuapp.com/corsdemo" target="_blank" 
+                 class="underline text-blue-500">this CORS demo page</a></li>
+              <li>Click "Request temporary access to the demo server"</li>
+              <li>Return here and try again</li>
+            </ol>
+          </div>
+        `;
+      }
+    });
+
+    function renderQuestions(questions) {
+      const container = document.getElementById('questionsContainer');
+      container.innerHTML = '';
+      
+      questions.forEach((q, index) => {
+        const questionEl = document.createElement('div');
+        questionEl.className = 'bg-gray-50 p-4 rounded-lg border mb-4';
+        questionEl.dataset.questionId = q.id;
+        
+        let answersHTML = '';
+        let hasAnswers = false;
+        
+        for (const [key, answer] of Object.entries(q.answers)) {
+          if (answer) {
+            hasAnswers = true;
+            answersHTML += `
+              <div class="flex items-center mb-2">
+                <input type="radio" id="q${index}_${key}" name="q${index}" value="${key}" class="mr-2">
+                <label for="q${index}_${key}" class="cursor-pointer">${answer}</label>
+              </div>
+            `;
+          }
+        }
+        
+        if (!hasAnswers) {
+          answersHTML = '<p class="text-gray-500">No answer options provided for this question.</p>';
+        }
+        
+        questionEl.innerHTML = `
+          <h3 class="font-semibold text-lg mb-2">Question ${index + 1}: ${q.question}</h3>
+          <div class="ml-4 space-y-2">
+            ${answersHTML}
+          </div>
+        `;
+        container.appendChild(questionEl);
+      });
+      
+      document.getElementById('quizContainer').classList.remove('hidden');
+      document.getElementById('resultsContainer').classList.add('hidden');
+      document.getElementById('statusMessage').innerHTML = '';
+    }
+
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      let score = 0;
+      const resultsContainer = document.getElementById('resultsContainer');
+      const answersReview = document.getElementById('answersReview');
+      const scoreDisplay = document.getElementById('scoreDisplay');
+      const rewardMessage = document.getElementById('reward-message');
+      answersReview.innerHTML = '';
+      rewardMessage.classList.add('hidden');  // hide reward initially
+
+      currentQuestions.forEach((q, index) => {
+        const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+        const isCorrect = selectedOption && selectedOption.value === q.correct_answer;
+        
+        if (isCorrect) {
+          score++;
+        }
+        
+        const reviewEl = document.createElement('div');
+        reviewEl.className = `p-4 rounded-lg border ${isCorrect ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`;
+        
+        let correctAnswerText = '';
+        if (q.correct_answer) {
+          const correctKey = q.correct_answer;
+          correctAnswerText = q.answers[correctKey] || correctKey;
+        } else {
+          correctAnswerText = 'Multiple correct answers possible';
+        }
+        
+        let userAnswerText = 'Not answered';
+        if (selectedOption) {
+          userAnswerText = q.answers[selectedOption.value] || selectedOption.value;
+        }
+        
+        reviewEl.innerHTML = `
+          <h4 class="font-medium mb-2">Question ${index + 1}: ${q.question}</h4>
+          <p class="text-sm ${isCorrect ? 'text-green-600' : 'text-red-600'}">
+            Your answer: ${userAnswerText}
+          </p>
+          <p class="text-sm text-gray-600 mt-1">
+            Correct answer: ${correctAnswerText}
+          </p>
+        `;
+        
+        answersReview.appendChild(reviewEl);
+      });
+      
+      const totalQuestions = currentQuestions.length;
+      const percentage = Math.round((score / totalQuestions) * 100);
+      scoreDisplay.textContent = `You scored ${score} out of ${totalQuestions} questions correctly (${percentage}%).`;
+
+      if (score === totalQuestions) {
+        rewardMessage.classList.remove('hidden');  // Show reward badge
+      }
+      
+      document.getElementById('quizContainer').classList.add('hidden');
+      resultsContainer.classList.remove('hidden');
+    });
+
+    document.getElementById('retryQuiz').addEventListener('click', () => {
+      // Reset for new quiz
+      document.getElementById('quizForm').reset();
+      document.getElementById('resultsContainer').classList.add('hidden');
+      document.getElementById('quizContainer').classList.remove('hidden');
+      document.getElementById('reward-message').classList.add('hidden');
+      document.getElementById('answersReview').innerHTML = '';
+      document.getElementById('scoreDisplay').textContent = '';
+      document.getElementById('statusMessage').textContent = '';
+    });
+  </script>
+</body>
+</html>

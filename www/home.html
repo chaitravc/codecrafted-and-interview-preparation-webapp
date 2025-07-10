@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CodeCrafted | Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen overflow-x-hidden">
+
+  <!-- Navigation Bar -->
+  <nav class="bg-white shadow sticky top-0 z-10 w-full">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between space-y-2 md:space-y-0">
+      <div class="text-2xl font-bold text-blue-700 text-center md:text-left">👨‍💻 CodeCrafted</div>
+      <ul class="flex flex-wrap justify-center md:justify-end space-x-4 md:space-x-6 text-sm md:text-base font-medium text-gray-700">
+        <li><a href="home.html" class="text-blue-600 font-semibold">Home</a></li>
+        <li><a href="aptitude.html" class="hover:text-blue-600 transition">Aptitude</a></li>
+        <li><a href="problem-solving.html" class="hover:text-blue-600 transition">Problem Solving</a></li>
+        <li><a href="interview.html" class="hover:text-blue-600 transition">Interview Questions</a></li>
+        <li><a href="javascript:void(0)" onclick="goToDashboard()" class="hover:text-blue-600 transition">Go to Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Welcome Section -->
+  <header class="text-center py-16 bg-blue-100 rounded-b-3xl shadow">
+    <h1 class="text-4xl font-extrabold text-blue-800 mb-4">Welcome to CodeCrafted!</h1>
+    <p class="text-lg text-gray-700">Level up your coding skills, ace interviews, and track your progress — all in one place. 🚀</p>
+  </header>
+
+  <!-- Sections -->
+  <section class="max-w-5xl mx-auto px-6 mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
+      <h2 class="text-xl font-semibold text-blue-700 mb-2">🧠 Aptitude Practice</h2>
+      <p class="text-gray-600">Sharpen your problem-solving skills with hand-picked aptitude questions.</p>
+      <a href="aptitude.html">
+        <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Start Now</button>
+      </a>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">💻 Coding Challenges</h2>
+      <p class="text-gray-600">Tackle real-world problems and improve your coding logic daily.</p>
+      <a href="problem-solving.html">
+        <button class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Solve</button>
+      </a>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
+      <h2 class="text-xl font-semibold text-yellow-600 mb-2">🎤 Interview Prep</h2>
+      <p class="text-gray-600">Practice commonly asked interview questions and take quizzes.</p>
+      <a href="interview.html">
+        <button class="mt-4 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Prepare</button>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 mt-12 text-gray-500 text-sm">
+    © 2025 CodeCrafted. Made with ❤️ for learners.
+  </footer>
+
+  <!-- Script to handle Dashboard access -->
+  <script>
+    function goToDashboard() {
+      if (localStorage.getItem("isLoggedIn") === "true") {
+        // If logged in, redirect to Dashboard
+        window.location.href = "dashboard.html";
+      } else {
+        // If not logged in, ask if they want to log in or sign up
+        const userChoice = confirm("You need to log in or sign up to access the dashboard. Do you want to log in or sign up?");
+        if (userChoice) {
+          window.location.href = "login.html";
+        } else {
+          window.location.href = "signup.html";
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - CodeCrafted</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Navigation (Visible only after login) -->
+  <nav id="navbar" class="bg-white shadow sticky top-0 z-10 hidden">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <!-- Back arrow and Logo -->
+      <div class="flex items-center space-x-3">
+        <a href="home.html" title="Back to Home" class="text-blue-600 hover:text-blue-800 text-xl">
+          ←
+        </a>
+        <span class="text-2xl font-bold text-blue-700">👨‍💻 CodeCrafted</span>
+      </div>
+
+      <button onclick="logout()" class="text-red-600 font-semibold hover:underline">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Dashboard Content -->
+  <main class="max-w-4xl mx-auto p-8 text-center mt-8 bg-white shadow-2xl rounded-2xl">
+    <h1 class="text-4xl font-bold text-blue-700 mb-4">Welcome to CodeCrafted!</h1>
+    <p class="text-gray-700 text-lg mb-6">Empowering coders with knowledge, practice, and confidence.</p>
+
+    <img src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif" 
+         alt="Coding Illustration" 
+         class="mx-auto mb-8 rounded-lg shadow-lg w-full max-w-md"/>
+
+    <div class="text-left space-y-4 text-gray-800">
+      <blockquote class="border-l-4 border-blue-500 pl-4 italic">
+        “Code is like humor. When you have to explain it, it’s bad.”<br>
+        — Cory House
+      </blockquote>
+      <blockquote class="border-l-4 border-green-500 pl-4 italic">
+        “Programs must be written for people to read, and only incidentally for machines to execute.”<br>
+        — Harold Abelson
+      </blockquote>
+      <blockquote class="border-l-4 border-yellow-500 pl-4 italic">
+        “Talk is cheap. Show me the code.”<br>
+        — Linus Torvalds
+      </blockquote>
+    </div>
+  </main>
+
+  <script>
+    // Check if user is logged in
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "index.html";
+    } else {
+      document.getElementById("navbar").classList.remove("hidden");
+    }
+
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CodeCrafted | Aptitude</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Navigation Bar -->
+  <nav class="bg-white shadow sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <!-- Logo with Back Arrow -->
+      <div class="flex items-center space-x-2">
+        <a href="home.html" class="text-blue-600 text-2xl hover:text-blue-800">←</a>
+        <span class="text-2xl font-bold text-blue-700">👨‍💻 CodeCrafted</span>
+      </div>
+
+      <!-- Navigation Links -->
+      <ul class="hidden md:flex space-x-6 font-medium text-gray-700">
+        <li><a href="home.html" class="hover:text-blue-600 transition">Home</a></li>
+        <li><a href="aptitude.html" class="text-blue-600 font-semibold">Aptitude</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Aptitude Intro -->
+  <section class="text-center py-16 bg-green-100 rounded-b-3xl shadow">
+    <h1 class="text-4xl font-extrabold text-green-800 mb-4">🧠 Aptitude Practice</h1>
+    <p class="text-lg text-gray-700">Solve logical, numerical, and verbal aptitude questions with real-time feedback.</p>
+  </section>
+
+  <!-- Aptitude Categories -->
+  <section class="max-w-5xl mx-auto px-6 mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
+      <h2 class="text-xl font-semibold mb-2 text-blue-700">🧮 Quantitative</h2>
+      <p class="text-gray-600">Topics: Percentages, Time & Work, Profit & Loss, etc.</p>
+      <a href="quantitative.html">
+        <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Practice</button>
+      </a>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
+      <h2 class="text-xl font-semibold mb-2 text-purple-700">📊 Logical Reasoning</h2>
+      <p class="text-gray-600">Topics: Puzzles, Coding-Decoding, Series, etc.</p>
+      <a href="logical.html">
+        <button class="mt-4 px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">Practice</button>
+      </a>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
+      <h2 class="text-xl font-semibold mb-2 text-yellow-700">📚 Verbal Ability</h2>
+      <p class="text-gray-600">Topics: Synonyms, Grammar, Reading Comprehension, etc.</p>
+      <a href="verbal.html">
+        <button class="mt-4 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Practice</button>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 mt-12 text-gray-500 text-sm">
+    © 2025 CodeCrafted. Practice makes perfect.
+  </footer>
+
+</body>
+</html>

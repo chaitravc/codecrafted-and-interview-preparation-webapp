@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">finalappminorandroid</string>
+    <string name="title_activity_main">finalappminorandroid</string>
+    <string name="package_name">com.finalappminor.app</string>
+    <string name="custom_url_scheme">com.finalappminor.app</string>
+</resources>
